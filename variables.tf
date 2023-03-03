@@ -146,3 +146,15 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "cors_rule" {
+  description = "A map of CORS rules to add to the storage account"
+  type = object({
+    allowed_origins    = optional(list(string))
+    allowed_methods    = optional(list(string))
+    allowed_headers    = optional(list(string))
+    exposed_headers    = optional(list(string))
+    max_age_in_seconds = optional(number)
+  })
+  default = null
+}

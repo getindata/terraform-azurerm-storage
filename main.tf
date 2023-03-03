@@ -63,6 +63,17 @@ resource "azurerm_storage_account" "storeacc" {
     versioning_enabled       = var.enable_versioning
     last_access_time_enabled = var.last_access_time_enabled
     change_feed_enabled      = var.change_feed_enabled
+
+    dynamic "cors_rule" {
+      for_each = var.cors_rule != null ? ["true"] : []
+      content {
+        allowed_origins    = var.cors_rule.allowed_origins
+        allowed_methods    = var.cors_rule.allowed_methods
+        allowed_headers    = var.cors_rule.allowed_headers
+        exposed_headers    = var.cors_rule.exposed_headers
+        max_age_in_seconds = var.cors_rule.max_age_in_seconds
+      }
+    }
   }
 
   dynamic "network_rules" {

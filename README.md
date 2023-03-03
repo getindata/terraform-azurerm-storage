@@ -338,6 +338,12 @@ Name | Description | Type | Default
 `delete_after_days`|The age in days after last modification to delete the blob. Must be at least 0.|number|`0`
 `snapshot_delete_after_days`|The age in days after create to delete the snapshot. Must be at least 0.|number|`0`
 
+### `cors_rule`
+ Name                                       | Description                                                  | Type | Default
+--------------------------------------------|--------------------------------------------------------------| ---- | -------
+| `cors_rule` | (Optional) A map of CORS rules to add to the storage account | <pre>object({<br>    allowed_origins    = optional(list(string))<br>    allowed_methods    = optional(list(string))<br>    allowed_headers    = optional(list(string))<br>    exposed_headers    = optional(list(string))<br>    max_age_in_seconds = optional(number)<br>  })</pre> | `null` | no |
+
+
 ## Outputs
 
 Name | Description
