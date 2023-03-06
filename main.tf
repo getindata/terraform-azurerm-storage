@@ -8,6 +8,7 @@ locals {
   location                 = element(coalescelist(data.azurerm_resource_group.rgrp.*.location, azurerm_resource_group.rg.*.location, [""]), 0)
 }
 
+
 #---------------------------------------------------------
 # Resource Group Creation or selection - Default is "false"
 #----------------------------------------------------------
