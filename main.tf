@@ -33,7 +33,7 @@ resource "random_string" "unique" {
 }
 
 resource "azurerm_storage_account" "storeacc" {
-  name                      = substr(format("sta%s%s", lower(replace(var.storage_account_name, "/[[:^alnum:]]/", "")), random_string.unique.result), 0, 24)
+  name                      = var.use_raw_name ? var.storage_account_name : substr(format("sta%s%s", lower(replace(var.storage_account_name, "/[[:^alnum:]]/", "")), random_string.unique.result), 0, 24)
   resource_group_name       = local.resource_group_name
   location                  = local.location
   account_kind              = var.account_kind
@@ -43,7 +43,7 @@ resource "azurerm_storage_account" "storeacc" {
   is_hns_enabled            = var.is_hns_enabled || var.sftp_enabled
   sftp_enabled              = var.sftp_enabled
   min_tls_version           = var.min_tls_version
-  tags                      = merge({ "ResourceName" = substr(format("sta%s%s", lower(replace(var.storage_account_name, "/[[:^alnum:]]/", "")), random_string.unique.result), 0, 24) }, var.tags, )
+  tags                      = merge({ "ResourceName" = var.use_raw_name ? var.storage_account_name : substr(format("sta%s%s", lower(replace(var.storage_account_name, "/[[:^alnum:]]/", "")), random_string.unique.result), 0, 24) }, var.tags, )
 
   dynamic "identity" {
     for_each = var.managed_identity_type != null ? [1] : []
